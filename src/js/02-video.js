@@ -1,10 +1,10 @@
-import Player from '@vimeo/player';
+import Vimeo from '@vimeo/player';
 
-const player = new Player('handstick', {
-  id: 19231868,
-  width: 640,
-});
+const iframeRef = document.querySelector('#vimeo-player');
+const player = new Vimeo(iframeRef);
 
-player.on('play', function () {
-  console.log('played the video!');
-});
+const onTimeupdate = function (data) {
+  console.log(data);
+};
+
+player.on('timeupdate', onTimeupdate);
