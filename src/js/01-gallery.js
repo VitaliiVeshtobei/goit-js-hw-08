@@ -31,7 +31,8 @@ function createGallery(galleryItems) {
 function onClickPhoto(evt) {
   evt.preventDefault();
 }
-let gallery = new SimpleLightbox('.gallery a');
-gallery.on('show.simplelightbox', function () {
-  // do something…
+let gallery = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: '250',
 });
+gallery.on('show.simplelightbox', function () {});
