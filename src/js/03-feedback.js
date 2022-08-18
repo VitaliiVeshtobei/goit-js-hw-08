@@ -29,6 +29,11 @@ function populateInput() {
 
   if (savedMessage) {
     const savedMessagePars = JSON.parse(savedMessage);
+
+    if (savedMessagePars['email'] === undefined) {
+      return (refs.input.value = '');
+    }
+
     refs.input.value = savedMessagePars['email'];
     refs.textarea.value = savedMessagePars['message'];
   }
