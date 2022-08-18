@@ -9,7 +9,7 @@ const refs = {
 refs.form.addEventListener('submit', onSubmit);
 refs.form.addEventListener('input', throttle(onInputCheange, 500));
 
-let formData = {};
+let formData = JSON.parse(localStorage.getItem('feedback-form-state')) || {};
 
 populateInput();
 
@@ -24,6 +24,8 @@ function onSubmit(evt) {
 }
 
 function onInputCheange(evt) {
+  if (evt.target.value !== '') {
+  }
   formData[evt.target.name] = evt.target.value;
   localStorage.setItem('feedback-form-state', JSON.stringify(formData));
 }
