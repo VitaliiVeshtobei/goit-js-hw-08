@@ -8,15 +8,19 @@ const refs = {
 
 refs.form.addEventListener('submit', onSubmit);
 refs.form.addEventListener('input', throttle(onInputCheange, 500));
-const formData = {};
+
+let formData = {};
 
 populateInput();
 
 function onSubmit(evt) {
   evt.preventDefault();
-  evt.currentTarget.reset();
-  localStorage.removeItem('feedback-form-state');
-  console.log(formData);
+  if (evt.target[0].value !== '' && evt.target[1].value !== '') {
+    evt.currentTarget.reset();
+    localStorage.removeItem('feedback-form-state');
+    console.log(formData);
+    formData = {};
+  }
 }
 
 function onInputCheange(evt) {
@@ -30,11 +34,16 @@ function populateInput() {
   if (savedMessage) {
     const savedMessagePars = JSON.parse(savedMessage);
 
-    if (savedMessagePars['email'] === undefined) {
-      return (refs.input.value = '');
+    if (savedMessagePars['email'] !== undefined) {
+      refs.input.value = savedMessagePars['email'];
+    } else {
+      refs.input.value = '';
     }
 
-    refs.input.value = savedMessagePars['email'];
-    refs.textarea.value = savedMessagePars['message'];
+    if (savedMessagePars['message'] !== undefined) {
+      refs.textarea.value = savedMessagePars['message'];
+    } else {
+      refs.textarea.value = '';
+    }
   }
 }
